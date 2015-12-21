@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}{{ tag }}{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content_title %}{{ tag }}{% endblock %}
+
+{% block content %}	
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			{{ tag }}
+		</div>
+		<!-- /.panel-heading -->
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Status</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for entry in tag.entries %}
+							<tr>
+								<td>1</td>
+								<td>{{ entry.name }}</td>
+								<td>{{ entry.status }}</td>
+								<td>{{ entry.amount }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			<!-- /.table-responsive -->
+		</div>
+		<!-- /.panel-body -->
+	</div>
+{% endblock %}
