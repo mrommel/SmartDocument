@@ -100,6 +100,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/Users/mrommel/Prog/SmartReceipt/smartreceipt/smartreceipt'
-MEDIA_ROOT = '/Users/mrommel/Prog/SmartReceipt/smartreceipt/data'
+STATIC_ROOT = '/Users/mrommel/Prog/SmartDocument/smartdocument/smartdocument'
+MEDIA_ROOT = '/Users/mrommel/Prog/SmartDocument/smartdocument/data'
 MEDIA_URL = '/media/'
