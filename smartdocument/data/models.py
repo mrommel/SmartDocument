@@ -41,10 +41,6 @@ class Entry(models.Model):
     name					= models.CharField(max_length=40)
     tag 					= models.ForeignKey(Tag)
     
-    date_ordered   			= models.DateField(null=True, blank=True)
-    date_bill_received   	= models.DateField(null=True, blank=True)
-    date_payed   			= models.DateField(null=True, blank=True)
-    
     status 					= models.CharField(max_length=1, default="U", choices=(('U', 'Unsure'), ('O', 'Ordered'), ('N', 'Open'), ('P', 'Payed')))
     
     amount 					= models.DecimalField(max_digits=8, decimal_places=2)
@@ -75,6 +71,7 @@ class Document(models.Model):
     uuid           	= models.CharField(max_length=36, default=u'%s' % (uuid.uuid4()), blank=True, editable=False)
     title        	= models.CharField(max_length=150, default="", blank=True)
     summary      	= models.TextField(default="", blank=True)
+    date   			= models.DateField(null=True, blank=True)
     
     type 			= models.CharField(max_length=1, default="O", choices=(('O', 'Order'), ('B', 'Bill'), ('T', 'Transfer')))
     
