@@ -85,9 +85,7 @@ class Document(models.Model):
     
     entry 			= models.ForeignKey(Entry)
     
-    file           	= models.FileField(upload_to=get_filename_from_uuid)#lambda i,f: 'documents/%s' % i.uuid)
-    file_mimetype  	= models.CharField(max_length=50, default="", editable=False)
-    file_extension 	= models.CharField(max_length=10, default="", editable=False)
+    file           	= models.FileField(upload_to=get_filename_from_uuid, null=True, blank=True)
     
     date_added   	= models.DateTimeField("added", auto_now_add=True)
     date_updated 	= models.DateTimeField("updated", auto_now=True) 

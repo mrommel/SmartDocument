@@ -5,6 +5,8 @@ from django.template import RequestContext, loader
 
 from data.models import Tag, Document, Entry
 
+from collections import OrderedDict
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -62,23 +64,34 @@ def entry(request, entry_id):
 	tables
 """
 def tables(request):
-	document_list = Document.objects.all()
-	months = {'2014-10': 0, '2014-11': 0, 
-		'2014-12': 0, '2015-01': 0,
-		'2015-02': 0, '2015-03': 0,
-		'2015-04': 0, '2015-05': 0,
-		'2015-06': 0, '2015-07': 0,
-		'2015-08': 0, '2015-09': 0,
-		'2015-10': 0, '2015-11': 0,
-		'2015-12': 0, '2016-01': 0 }
+	document_list = Document.objects.filter(type = 'T')
+	
+	months = OrderedDict()
+	months['2014-10'] = 0
+	months['2014-11'] = 0 
+	months['2014-12'] = 0
+	months['2015-01'] = 0
+	months['2015-02'] = 0
+	months['2015-03'] = 0
+	months['2015-04'] = 0
+	months['2015-05'] = 0
+	months['2015-06'] = 0
+	months['2015-07'] = 0
+	months['2015-08'] = 0
+	months['2015-09'] = 0
+	months['2015-10'] = 0
+	months['2015-11'] = 0
+	months['2015-12'] = 0
+	months['2016-01'] = 0
 		
 	for document in document_list:
 		temp = str(document.date)[:7]
 		for month in months.keys():
 			if month == temp:
 				months[month] = months[month] + document.entry.amount
-				logger.error('months[%s] = %s' % (month, months[month]))
+				#logger.error('months[%s] = %s' % (month, months[month]))
 				
-		logger.error('document %s - %s' % (temp, document.entry.amount))
+		#logger.error('document %s - %s' % (temp, document.entry.amount))	
 
-	return render(request, 'data/tables.html', {'stats': months})
+	return render(request, 'data/tables.html', {'stats': months })
+	

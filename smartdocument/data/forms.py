@@ -38,8 +38,7 @@ class TagForm(admin.ModelAdmin):
 class DocumentInline(admin.TabularInline):
 	model = Document
 	fk_name = "entry"
-	readonly_fields = ('title',)
-	fields = ('title', 'date', 'type')
+	fields = ('title', 'date', 'type', 'file', )
 	
 	def get_extra (self, request, obj=None, **kwargs):
 		""" hide all extra """
@@ -47,13 +46,25 @@ class DocumentInline(admin.TabularInline):
     
 class EntryForm(admin.ModelAdmin):
 	model = Entry
-	list_display = ('name', 'tag_name', 'amount', 'status',)
+	list_display = ('name', 'tag_name', 'amount', 'status', 'check_entry', )
 	ordering = ('name',)
 	
 	inlines = [
 		DocumentInline,
 	]
 	
+	def check_entry(self, instance):
+		if instance.status == 'P' and len(instance.transfer()) == 0:
+			return '<img src="/static/data/img/cancel.png" height="20" />'
+		
+		return '<img src="/static/data/img/okay.png" height="20" />'
+	check_entry.allow_tags = True
+	
 	def tag_name(self, instance):
 		return str(instance.tag)
 		
+class DocumentForm(admin.ModelAdmin):
+	model = Document
+	list_display = ('title', 'date', 'type', 'entry',)
+	ordering = ('title',)
+	
