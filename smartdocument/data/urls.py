@@ -11,4 +11,9 @@ urlpatterns = [
     # documents
     url(r'^documents$', views.documents, name='data.views.documents'),
     url(r'^document/(?P<document_id>\d+)$', views.document, name='data.views.document'),
+    # entries
+    url(r'^entries$', views.entries, name='data.views.entries'),
+    url(r'^entry/(?P<entry_id>\d+)$', views.entry, name='data.views.entry'),
+    # tables
+    url(r'^tables$', views.tables, name='data.views.tables'),
 ]

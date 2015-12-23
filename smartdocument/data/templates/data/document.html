@@ -8,39 +8,53 @@
 {% block scripts %}
 {% endblock %}
 
-{% block content_title %}{{ tag }}{% endblock %}
+{% block content_title %}{{ document }}{% endblock %}
 
 {% block content %}	
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			{{ tag }}
+			Data
 		</div>
 		<!-- /.panel-heading -->
 		<div class="panel-body">
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Status</th>
-							<th>Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for entry in tag.entries %}
-							<tr>
-								<td>1</td>
-								<td>{{ entry.name }}</td>
-								<td>{{ entry.status }}</td>
-								<td>{{ entry.amount }}</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="form-group">
+						<label>Title</label>
+						<p class="form-control-static">{{ document.title }}</p>
+					</div>
+					<!-- /.form-group -->
+					<div class="form-group">
+						<label>Summary</label>
+						<p class="form-control-static">{{ document.summary }}</p>
+					</div>
+					<!-- /.form-group -->
+					<div class="form-group">
+						<label>Date</label>
+						<p class="form-control-static">{{ document.date }}</p>
+					</div>
+					<!-- /.form-group -->
+					<div class="form-group">
+						<label>Type</label>
+						<p class="form-control-static">{{ document.get_type_display }}</p>
+					</div>
+					<!-- /.form-group -->
+					<div class="form-group">
+						<label>Entry</label>
+						<p class="form-control-static"><a href="/data/entry/{{ document.entry.id }}">{{ document.entry }}</a></p>
+					</div>
+					<!-- /.form-group -->
+					<div class="form-group">
+						<label>File</label>
+						<p class="form-control-static">{{ document.file }}</p>
+					</div>
+					<!-- /.form-group -->
+				</div>
+				<!-- /.col-lg-6 -->
 			</div>
-			<!-- /.table-responsive -->
+			<!-- /.row -->
 		</div>
 		<!-- /.panel-body -->
 	</div>
+	
 {% endblock %}

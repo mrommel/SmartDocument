@@ -71,6 +71,58 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'smartdocument.wsgi.application'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/mrommel/Prog/SmartDocument/smartdocument/debug.log',
+            'formatter': 'verbose'
+        },
+        'file2': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/mrommel/Prog/SmartDocument/smartdocument/django.log',
+            'formatter': 'verbose'
+        },
+        'file_forms': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/mrommel/Prog/SmartDocument/smartdocument/forms.log',
+            'formatter': 'verbose'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers':['file2'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
+        'data.models': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+        'data.forms': {
+            'handlers': ['file_forms'],
+            'level': 'DEBUG',
+        },
+        'data.views': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
