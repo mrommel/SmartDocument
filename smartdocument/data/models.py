@@ -24,6 +24,14 @@ class Tag(models.Model):
     def entries(self):
     	return Entry.objects.filter(tag = self)
     
+    def amount(self):
+    	amount = 0
+    	
+    	for entry in self.entries():
+    		amount = amount + entry.amount
+    	
+    	return amount
+    
     @models.permalink
     def get_absolute_url(self):
         return ('data.views.tag', [str(self.id)])
