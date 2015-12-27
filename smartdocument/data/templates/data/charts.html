@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}Charts{% endblock %}
+
+{% block scripts %}
+{% endblock %}
+
+{% block content_title %}Charts{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<b>Ausgaben</b>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="placeholder" style="width:950px;height:350px"></div>
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<b>Ausgaben (kumuliert)</b>
+				</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div id="placeholder2" style="width:950px;height:350px"></div>
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+{% endblock %}
+
+{% block scripts_footer %}
+	<!-- Flot Charts JavaScript -->
+    <script src="{% static 'data/js/flot/excanvas.min.js' %}"></script>
+    <script src="{% static 'data/js/flot/jquery.flot.js' %}"></script>
+    <script src="{% static 'data/js/flot/jquery.flot.pie.js' %}"></script>
+    <script src="{% static 'data/js/flot/jquery.flot.resize.js' %}"></script>
+    <script src="{% static 'data/js/flot/jquery.flot.time.js' %}"></script>
+    <script src="{% static 'data/js/flot/jquery.flot.tooltip.min.js' %}"></script>
+    <script>
+    	var values = [];
+    	var i = 0;
+    	var time;
+    	// 1412114400000 - 1414796400
+    	{% for key, value in stats.items %}
+    		time = 1412114400000 + i * 2682000000;
+			values.push([time, {{ value }}]);
+			i++;
+		{% endfor %}
+		
+		var data = [ { label: "Ausgaben", data: values } ];
+			
+		var options = { 
+			yaxis: { min: 0 }, 
+			xaxes: [{
+                mode: 'time'
+            }], 
+            series: {
+            	bars: {
+                	show: true,
+                	barWidth: 832000000,
+            	}
+        	}
+        };
+		
+    	$.plot($("#placeholder"), data, options);
+    </script>
+    <script>
+    	var values = [];
+    	var i = 0;
+    	var time;
+    	var sum = 0;
+    	// 1412114400000 - 1414796400
+    	{% for key, value in stats.items %}
+    		time = 1412114400000 /* 2014-10 */ + i * 2682000000;
+    		sum = sum + {{ value }};
+			values.push([time, sum]);
+			i++;
+		{% endfor %}
+		
+		var data = [ { label: "Ausgaben (kumuliert)", data: values } ];
+			
+		var options = { 
+			yaxis: { min: 0 }, 
+			xaxes: [{
+                mode: 'time'
+            }]
+        };
+		
+    	$.plot($("#placeholder2"), data, options);
+    </script>
+{% endblock %}

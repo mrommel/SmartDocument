@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^entry/(?P<entry_id>\d+)$', views.entry, name='data.views.entry'),
     # tables
     url(r'^tables$', views.tables, name='data.views.tables'),
+    # charts
+    url(r'^charts$', views.charts, name='data.views.charts'),
 ]

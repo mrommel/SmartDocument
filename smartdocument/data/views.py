@@ -59,6 +59,41 @@ def entry(request, entry_id):
 	entry = get_object_or_404(Entry, pk=entry_id)
 
 	return render(request, 'data/entry.html', {'entry': entry})
+
+"""
+	charts
+"""
+def charts(request):
+	document_list = Document.objects.filter(type = 'T')
+	
+	months = OrderedDict()
+	months['2014-10'] = 0
+	months['2014-11'] = 0 
+	months['2014-12'] = 0
+	months['2015-01'] = 0
+	months['2015-02'] = 0
+	months['2015-03'] = 0
+	months['2015-04'] = 0
+	months['2015-05'] = 0
+	months['2015-06'] = 0
+	months['2015-07'] = 0
+	months['2015-08'] = 0
+	months['2015-09'] = 0
+	months['2015-10'] = 0
+	months['2015-11'] = 0
+	months['2015-12'] = 0
+	months['2016-01'] = 0
+		
+	for document in document_list:
+		temp = str(document.date)[:7]
+		for month in months.keys():
+			if month == temp:
+				months[month] = months[month] + document.entry.amount
+				#logger.error('months[%s] = %s' % (month, months[month]))
+				
+		#logger.error('document %s - %s' % (temp, document.entry.amount))	
+
+	return render(request, 'data/charts.html', {'stats': months })
 	
 """
 	tables
