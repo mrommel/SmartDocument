@@ -13,13 +13,18 @@ logger = logging.getLogger(__name__)
 
 def index(request):
 	tag_list = Tag.objects.all()
-	category = {'U': 0, 'O': 0, 'N': 0, 'P': 0 }
-	entries_list = Entry.objects.all()
+	category = {u'Unsure': 0, u'Open': 0, u'Ordered': 0, u'Payed': 0 }
+	entries_list = Entry.objects.filter()
+	
+	next_entries_list = []
 	
 	for entry in entries_list:
-		category[entry.status] = category[entry.status] + entry.amount
+		category[entry.get_status_display()] = category[entry.get_status_display()] + entry.amount
+		
+		if entry.status == 'N':
+			next_entries_list.append(entry)
 	
-	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category})
+	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list})
    
 """
 	tag
