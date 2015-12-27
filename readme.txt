@@ -20,3 +20,4 @@ python manage.py migrate
 
 # template
 http://ironsummitmedia.github.io/startbootstrap-sb-admin-2/pages/index.html
+https://github.com/flot/flot/blob/master/examples/basic-options/index.html
