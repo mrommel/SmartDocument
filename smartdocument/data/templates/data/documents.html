@@ -23,17 +23,19 @@
 						<tr>
 							<th>#</th>
 							<th>Name</th>
-							<th>Status</th>
-							<th>Amount</th>
+							<th>Entry</th>
+							<th>Type</th>
+							<th>Date</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for entry in tag.entries %}
+						{% for document in document_list %}
 							<tr>
-								<td>1</td>
-								<td>{{ entry.name }}</td>
-								<td>{{ entry.status }}</td>
-								<td>{{ entry.amount }}</td>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ document.title }}</td>
+								<td><a href="/data/entry/{{ document.entry.id }}">{{ document.entry }}</a></td>
+								<td>{{ document.type }}</td>
+								<td>{{ document.date }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>

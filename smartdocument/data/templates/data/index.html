@@ -47,7 +47,7 @@
 							{% for entry in next_entries_list %}
 								<tr>
 									<td class="colindex">{{ forloop.counter }}</td>
-									<td class="colname">{{ entry.name }}</td>
+									<td class="colname"><a href="/data/entry/{{ entry.id }}">{{ entry.name }}</a></td>
 									<td class="colstatus">{{ entry.get_status_display }}</td>
 								</tr>
 							{% endfor %}

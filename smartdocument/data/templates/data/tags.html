@@ -53,7 +53,7 @@
 							{% for entry in tag.entries %}
 								<tr>
 									<td class="colindex">{{ forloop.counter }}</td>
-									<td class="colname">{{ entry.name }}</td>
+									<td class="colname"><a href="/data/entry/{{ entry.id }}">{{ entry.name }}</a></td>
 									<td class="coldoc">{% for order in entry.order %}<a href="/data/document/{{ order.id }}"><img src="{% static 'data/img/pdf-icon.png' %}" class="pdf-icon" /></a>{% endfor %}</td>
 									<td class="coldoc">{% for bill in entry.bill %}<a href="/data/document/{{ bill.id }}"><img src="{% static 'data/img/pdf-icon.png' %}" class="pdf-icon" /></a>{% endfor %}</td>
 									<td class="coldoc">{% for transfer in entry.transfer %}<a href="/data/document/{{ transfer.id }}"><img src="{% static 'data/img/pdf-icon.png' %}" class="pdf-icon" /></a>{% endfor %}</td>

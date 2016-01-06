@@ -13,7 +13,7 @@
 {% block content %}	
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			{{ tag }}
+			{{ entry }}
 		</div>
 		<!-- /.panel-heading -->
 		<div class="panel-body">
@@ -21,21 +21,57 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>#</th>
-							<th>Name</th>
-							<th>Status</th>
-							<th>Amount</th>
+							<th></th>
+							<th>Value</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for entry in tag.entries %}
-							<tr>
-								<td>1</td>
-								<td>{{ entry.name }}</td>
-								<td>{{ entry.status }}</td>
-								<td>{{ entry.amount }}</td>
-							</tr>
-						{% endfor %}
+						<tr>
+							<td>Title</td>
+							<td>{{ entry.name }}</td>
+						</tr>
+						<tr>
+							<td>Tag</td>
+							<td>{{ entry.tag }}</td>
+						</tr>
+						<tr>
+							<td>Status</td>
+							<td>{{ entry.status }}</td>
+						</tr>
+						<tr>
+							<td>Amount</td>
+							<td>{{ entry.amount }}</td>
+						</tr>
+						<tr>
+							<td>Order</td>
+							<td>
+							<ul>
+								{% for bill in entry.order %}
+									<li><a href="/data/document/{{ bill.id }}">{{ bill.title }}</a></li>
+								{% endfor %}
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td>Bill</td>
+							<td>
+								<ul>
+								{% for bill in entry.bill %}
+									<li><a href="/data/document/{{ bill.id }}">{{ bill.title }}</a></li>
+								{% endfor %}
+								</ul>
+							</td>
+						</tr>
+						<tr>
+							<td>Transfer</td>
+							<td>
+							<ul>
+								{% for bill in entry.transfer %}
+									<li><a href="/data/document/{{ bill.id }}">{{ bill.title }}</a></li>
+								{% endfor %}
+								</ul>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
