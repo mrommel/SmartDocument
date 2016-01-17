@@ -88,6 +88,17 @@ def charts(request):
 	months['2015-11'] = 0
 	months['2015-12'] = 0
 	months['2016-01'] = 0
+	months['2016-02'] = 0
+	months['2016-03'] = 0
+	months['2016-04'] = 0
+	months['2016-05'] = 0
+	months['2016-06'] = 0
+	months['2016-07'] = 0
+	months['2016-08'] = 0
+	months['2016-09'] = 0
+	months['2016-10'] = 0
+	months['2016-11'] = 0
+	months['2016-12'] = 0
 		
 	for document in document_list:
 		temp = str(document.date)[:7]
@@ -123,6 +134,17 @@ def tables(request):
 	months['2015-11'] = 0
 	months['2015-12'] = 0
 	months['2016-01'] = 0
+	months['2016-02'] = 0
+	months['2016-03'] = 0
+	months['2016-04'] = 0
+	months['2016-05'] = 0
+	months['2016-06'] = 0
+	months['2016-07'] = 0
+	months['2016-08'] = 0
+	months['2016-09'] = 0
+	months['2016-10'] = 0
+	months['2016-11'] = 0
+	months['2016-12'] = 0
 		
 	for document in document_list:
 		temp = str(document.date)[:7]

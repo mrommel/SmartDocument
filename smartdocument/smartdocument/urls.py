@@ -20,5 +20,6 @@ from django.views.generic import RedirectView
 urlpatterns = [
 	url(r'^$', RedirectView.as_view(url='/data/index')),
 	url(r'^data/', include('data.urls')),
+	url(r'^forecast/', include('forecast.urls')),
     url(r'^admin/', include(admin.site.urls)),
 ]
