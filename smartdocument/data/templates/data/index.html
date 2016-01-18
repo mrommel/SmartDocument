@@ -31,7 +31,7 @@
 		<div class="col-lg-8">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<b>Next action</b>
+					<b>Todo</b>
 				</div>
 				<!-- /.panel-heading -->
 				<div class="panel-body">
@@ -49,6 +49,13 @@
 									<td class="colindex">{{ forloop.counter }}</td>
 									<td class="colname"><a href="/data/entry/{{ entry.id }}">{{ entry.name }}</a></td>
 									<td class="colstatus">{{ entry.get_status_display }}</td>
+								</tr>
+							{% endfor %}
+							{% for action in actions %}
+								<tr>
+									<td class="colindex">{{ forloop.counter }}</td>
+									<td class="colname">{{ action.title	 }}</a></td>
+									<td class="colstatus"></td>
 								</tr>
 							{% endfor %}
 						</tbody>

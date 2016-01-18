@@ -92,4 +92,14 @@ class Document(models.Model):
     
     def __unicode__(self):
         return self.title or u"untitled"
+        
+class Action(models.Model):
+    title					= models.CharField(max_length=40)
+    tag 					= models.ForeignKey(Tag, null=True, blank=True)
+    date   					= models.DateField(null=True, blank=True)
     
+    date_added   			= models.DateTimeField("added", auto_now_add=True)
+    date_updated 			= models.DateTimeField("updated", auto_now=True) 
+    
+    def __unicode__(self):
+        return self.title or u"untitled"

@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from data.models import Tag, Document, Entry
+from data.models import Tag, Document, Entry, Action
 
 from collections import OrderedDict
 
@@ -23,8 +23,10 @@ def index(request):
 		
 		if entry.status == 'N':
 			next_entries_list.append(entry)
+			
+	actions = Action.objects.filter()
 	
-	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list})
+	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list, 'actions': actions })
    
 """
 	tag

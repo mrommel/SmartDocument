@@ -37,7 +37,7 @@ class Payment(models.Model):
     name					= models.CharField(max_length=40)
     category 				= models.ForeignKey(Category)
     
-    period 					= models.CharField(max_length=1, default="M", choices=(('M', 'Monthly'), ('Q', 'Quarterly'), ('Y', 'Yearly')))
+    period 					= models.CharField(max_length=1, default="O", choices=(('O', 'Once'), ('M', 'Monthly'), ('Q', 'Quarterly'), ('Y', 'Yearly')))
     first_execution   		= models.DateField(null=True, blank=True)
     
     amount 					= models.DecimalField(max_digits=8, decimal_places=2)
