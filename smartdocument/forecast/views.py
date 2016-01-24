@@ -3,9 +3,11 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 
-from forecast.models import Category, Payment
+from forecast.models import Category, Payment, TimelineEntry
 
 from collections import OrderedDict
+
+from operator import attrgetter
 
 # Create your views here.
 def index(request):	
@@ -18,6 +20,16 @@ def index(request):
 		amount_per_year = amount_per_year + category.amount()
 
 	return render(request, 'forecast/index.html', { 'categories': categories, 'payments': payments, 'amount_per_year': amount_per_year })
+
+# timeline
+def timeline(request):	
+
+	timelineEntries = TimelineEntry.objects.all()
+	
+	sorted_timeline = sorted(timelineEntries, key=attrgetter('date'), reverse=True)
+
+	return render(request, 'forecast/timeline.html', { 'timelineEntries': sorted_timeline })
+
 
 def charts(request):
 	payments = Payment.objects.all()

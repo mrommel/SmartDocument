@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block title %}Timeline{% endblock %}
+
+{% block scripts %}
+	<link rel="stylesheet" type="text/css" href="{% static 'data/css/timeline2.css' %}" />
+	<style>
+		img.cd-timeline-preview {
+			width: 200px;
+			display: block;
+			-webkit-border-radius: 5px;
+ 			-moz-border-radius: 5px;
+ 			border-radius: 5px;
+		}
+		.gallery-container {
+ 			width: 96%;
+ 			margin: 30px auto;
+ 			overflow: hidden;
+		}
+		.galleryItem {
+ 			color: #797478;
+ 			float: left;
+ 			padding-right: 10px;
+		}
+		.galleryItem p {
+			width: 150px;
+			margin-top: 4px;
+		}
+		.galleryItem img {
+ 			width: 150px;
+ 			-webkit-border-radius: 5px;
+ 			-moz-border-radius: 5px;
+ 			border-radius: 5px;
+		}
+	</style>
+{% endblock %}
+
+{% block content_title %}Timeline{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body" style="background-color: #e9f0f5;">
+					<section id="cd-timeline" class="cd-container">
+						{% for entry in timelineEntries %}
+							<div class="cd-timeline-block">
+								{% if entry.event_type == 'G' %}
+									<div class="cd-timeline-img cd-movie">
+										<img src="{% static 'data/img/cd-icon-movie.svg' %}" alt="Picture">
+									</div> <!-- cd-timeline-img -->
+								{% endif %}
+								{% if entry.event_type == 'P' %}
+									<div class="cd-timeline-img cd-picture">
+										<img src="{% static 'data/img/cd-icon-picture.svg' %}" alt="Picture">
+									</div> <!-- cd-timeline-img -->
+								{% endif %}
+								{% if entry.event_type == 'T' %}
+									<div class="cd-timeline-img cd-location">
+										<img src="{% static 'data/img/cd-icon-location.svg' %}" alt="Picture">
+									</div> <!-- cd-timeline-img -->
+								{% endif %}
+
+								<div class="cd-timeline-content">
+									<h2>{{ entry.title }}</h2>
+									<p>{{ entry.description }}</p>
+									{% if entry.event_type == 'P' %}
+										{% if entry.image %}
+											<img src="{{ MEDIA_URL }}..{{ entry.image.url }}" class="cd-timeline-preview" />
+										{% endif %}
+									{% endif %}
+									{% if entry.event_type == 'G' %}
+										<div class="gallery-container">
+										{% for image in entry.gallery.images %}	
+											<div class="galleryItem">
+												<a href="#"><img src="{{ MEDIA_URL }}..{{ image.image.url }}" class="cd-timeline-thumbnail" /></a>
+												<p>{{ image.title }}</p>
+ 											</div>
+										{% endfor %}
+										</div><!-- gallery-container -->
+									{% endif %}
+									<a href="#0" class="cd-read-more">Read more</a>
+									<span class="cd-date">{{ entry.date }}</span>
+								</div> <!-- cd-timeline-content -->
+							</div> <!-- cd-timeline-block -->
+						{% endfor %}
+					</section> <!-- cd-timeline -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<!-- /.col-lg-12 -->
+	</div>
+	<!-- /.row -->
+{% endblock %}
+
+{% block scripts_footer %}
+<script>
+	jQuery(document).ready(function ($) {
+		var $timeline_block = $('.cd-timeline-block');
+		$timeline_block.each(function () {
+			if ($(this).offset().top > $(window).scrollTop() + $(window).height() * 0.75) {
+				$(this).find('.cd-timeline-img, .cd-timeline-content').addClass('is-hidden');
+			}
+		});
+		$(window).on('scroll', function () {
+			$timeline_block.each(function () {
+				if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.75 && $(this).find('.cd-timeline-img').hasClass('is-hidden')) {
+					$(this).find('.cd-timeline-img, .cd-timeline-content').removeClass('is-hidden').addClass('bounce-in');
+				}
+			});
+		});
+	});
+      //@ sourceURL=pen.js
+</script>
+{% endblock %}
