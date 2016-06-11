@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 def index(request):
 	tag_list = Tag.objects.all()
 	category = {u'Unsure': 0, u'Open': 0, u'Ordered': 0, u'Payed': 0 }
+	creditable_entries = {u'Unsure': [], u'Yes': [], u'No': [], u'Ignore': [] }
+	creditable_sum = {u'Unsure': 0, u'Yes': 0, u'No': 0, u'Ignore': 0 }
 	entries_list = Entry.objects.filter()
 	
 	next_entries_list = []
@@ -24,9 +26,13 @@ def index(request):
 		if entry.status == 'N':
 			next_entries_list.append(entry)
 			
+		creditable_entries[entry.get_creditable_display()].append(entry)
+		
+		creditable_sum[entry.get_creditable_display()] = creditable_sum[entry.get_creditable_display()] + entry.amount
+			
 	actions = Action.objects.filter()
 	
-	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list, 'actions': actions })
+	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list, 'actions': actions, 'creditable': creditable_entries, 'creditable_sum': creditable_sum })
    
 """
 	tag

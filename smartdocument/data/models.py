@@ -50,6 +50,7 @@ class Entry(models.Model):
     tag 					= models.ForeignKey(Tag)
     
     status 					= models.CharField(max_length=1, default="U", choices=(('U', 'Unsure'), ('O', 'Ordered'), ('N', 'Open'), ('P', 'Payed')))
+    creditable 				= models.CharField(max_length=1, default="U", choices=(('U', 'Unsure'), ('Y', 'Yes'), ('N', 'No'), ('I', 'Ignore')))
     
     amount 					= models.DecimalField(max_digits=8, decimal_places=2)
     

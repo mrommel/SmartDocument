@@ -46,7 +46,7 @@ class DocumentInline(admin.TabularInline):
     
 class EntryForm(admin.ModelAdmin):
 	model = Entry
-	list_display = ('name', 'tag_name', 'amount', 'status', 'check_entry', )
+	list_display = ('name', 'tag_name', 'amount', 'status', 'creditable', 'check_entry', )
 	ordering = ('name',)
 	
 	inlines = [
