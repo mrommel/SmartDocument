@@ -20,6 +20,15 @@ def index(request):
 	
 	next_entries_list = []
 	
+	table = [
+    	[u'', u'Unsure', u'Yes', u'No', u'Ignore', u'Sum'],
+    	[u'Unsure', 0, 0, 0, 0, 0],
+    	[u'Open', 0, 0, 0, 0, 0],
+    	[u'Ordered', 0, 0, 0, 0, 0],
+    	[u'Payed', 0, 0, 0, 0, 0],
+    	[u'Sum', 0, 0, 0, 0, 0],
+	]
+	
 	for entry in entries_list:
 		category[entry.get_status_display()] = category[entry.get_status_display()] + entry.amount
 		
@@ -29,10 +38,35 @@ def index(request):
 		creditable_entries[entry.get_creditable_display()].append(entry)
 		
 		creditable_sum[entry.get_creditable_display()] = creditable_sum[entry.get_creditable_display()] + entry.amount
+		
+		indexx = 0
+		indexy = 0
+		
+		if entry.get_creditable_display() == 'Unsure':
+			indexx = 1
+		if entry.get_creditable_display() == 'Yes':
+			indexx = 2
+		if entry.get_creditable_display() == 'No':
+			indexx = 3
+		if entry.get_creditable_display() == 'Ignore':
+			indexx = 4
+			
+		if entry.get_status_display() == 'Unsure':
+			indexy = 1
+		if entry.get_status_display() == 'Open':
+			indexy = 2
+		if entry.get_status_display() == 'Ordered':
+			indexy = 3
+		if entry.get_status_display() == 'Payed':
+			indexy = 4
+			
+		table[indexy][indexx] = table[indexy][indexx] + entry.amount
+		table[indexy][5] = table[indexy][5] + entry.amount
+		table[5][indexx] = table[5][indexx] + entry.amount
 			
 	actions = Action.objects.filter()
 	
-	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list, 'actions': actions, 'creditable': creditable_entries, 'creditable_sum': creditable_sum })
+	return render(request, 'data/index.html', {'tag_list': tag_list, 'category': category, 'next_entries_list': next_entries_list, 'actions': actions, 'creditable': creditable_entries, 'creditable_sum': creditable_sum, 'creditable_table': table })
    
 """
 	tag
